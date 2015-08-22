@@ -8,16 +8,20 @@
 ### The function "makeCacheMatrix" stores a given square (invertible
 ### or non-singular) matrix that can also cache its inverse.
 
+## Please Note: This code is modified from the sample code for "Caching the Mean of 
+## a Vector", provided by Course Instructor R. Peng in the file forked from: 
+## https://github.com/rdpeng/ProgrammingAssignment2 on 21 August 2015.
+
 makeCacheMatrix <- function(x = matrix()) {
-        inv <- NULL
+        i <- NULL
         set <- function(y) {
                 x <<- y
-                inv <<- NULL
+                i <<- NULL
         }
         get <- function() x
-        setinv <- function(inverse) inv <<- inverse
-        getinv <- function() inv
-        list(set = set, get = get, setinv = setinv, getinv = getinv)
+        seti <- function(inverse) i <<- inverse
+        geti <- function() i
+        list(set = set, get = get, seti = seti, geti = geti)
 }
         
         
@@ -28,13 +32,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ### "cacheSolve" calculates the inverse of the given matrix.
 
 cacheSolve <- function(x, ...) {
-        inv <- x$getinv()
-        if(!is.null(inv)) {
+        i <- x$geti()
+        if(!is.null(i)) {
                 message("getting cached data")
-                return(inv)
+                return(i)
         }
         data <- x$get()
-        inv <- solve(data, ...)
-        x$setinv(inv)
-        inv
+        i <- solve(data, ...)
+        x$seti(i)
+        i
 }
